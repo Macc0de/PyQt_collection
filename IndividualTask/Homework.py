@@ -372,7 +372,7 @@ class Period(QDialog):
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.uid = "uid_0"
+        self.uid = "uid_1"
         self.setWindowTitle("Учёт доходов/расходов")
         self.resize(800, 500)
 
@@ -432,7 +432,7 @@ class TransactionPanel(QWidget):
         self.filename = filename
         self.uid = uid
 
-        layout = QVBoxLayout()
+        layout = QFormLayout()
         layout.setContentsMargins(10, 10, 10, 10)
         layout.setSpacing(10)
 
@@ -477,17 +477,16 @@ class TransactionPanel(QWidget):
         bottom_layout.addWidget(self.period_button)
 
         # Layout
-        layout.addWidget(title_label)
-        layout.addWidget(QLabel("Категории:"))
-        layout.addWidget(self.topics)
-        layout.addLayout(top_layout)
-        layout.addWidget(self.categories)
+        layout.addRow(title_label)
+        layout.addRow("Категории", self.topics)
+        layout.addRow(top_layout)
+        layout.addRow(self.categories)
 
         self.view = QListView()
         self.model = DataModel(categories_items, self.filename)
         self.view.setModel(self.model)
-        layout.addWidget(self.view)
-        layout.addLayout(bottom_layout)
+        layout.addRow(self.view)
+        layout.addRow(bottom_layout)
 
         self.setLayout(layout)
 
